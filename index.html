@@ -1075,6 +1075,7 @@ const authors = [
       { name: "Texto de Platón PAU 2025", path: "Texto de Platón PAU 2025.pdf" },
       { name: "Teoría de las ideas: ítems (lista)", path: "Platon_items_lista.pdf" },
       { name: "Teoría de las ideas: ítems (marcado en el texto)", path: "Platon_items_marcado.pdf" },
+      { name: "Interpretación del texto platónico", path: "Interpretación del texto platónico.pdf", url: "https://claude.ai/artifact/FkyopYbGB2hbdz2GPDe6aB#mapa" },
     ]
   },
   {
@@ -1220,10 +1221,13 @@ function openAuthor(index) {
           <div class="file-name">${file.name}</div>
         </div>
         <div class="file-actions">
-          <button class="btn-view" onclick="openPdfViewer('${encodeURIComponent(file.path)}', '${file.name.replace(/'/g, "\\'")}')">
+          ${file.url ? `<a class="btn-view" href="${file.url}" target="_blank" rel="noopener" style="text-decoration:none">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
             Ver
-          </button>
+          </a>` : `<button class="btn-view" onclick="openPdfViewer('${encodeURIComponent(file.path)}', '${file.name.replace(/'/g, "\\'")}')">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            Ver
+          </button>`}
           <a class="btn-download" href="${file.path}" download onclick="registerDownload()">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             Descargar
