@@ -430,6 +430,17 @@ body::after {
   gap: 0.8rem;
 }
 
+.files-section {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem;
+  font-weight: 600;
+  color: var(--accent-deep);
+  margin: 1.6rem 0 0.2rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid var(--border-light);
+}
+.files-section:first-child { margin-top: 0; }
+
 .file-item {
   background: var(--bg-card);
   border: 1px solid var(--border-light);
@@ -1068,19 +1079,19 @@ const authors = [
     icon: "☀️",
     image: "https://upload.wikimedia.org/wikipedia/commons/8/88/Plato_Silanion_Musei_Capitolini_MC1377.jpg",
     files: [
-      { name: "Análisis del texto de Platón", path: "Análisis del texto de Platón.pdf" },
-      { name: "Contextualización filosófica de Platón", path: "Contextualización filosófica de Platón.pdf" },
-      { name: "Contextualizacion_Platon_modelos_30_lineas", path: "Contextualizacion_Platon_modelos_30_lineas.pdf" },
-      { name: "Contextualizacion_amplia de Platon mejorada con claude 2027", path: "Contextualizacion_amplia de Platon mejorada con claude 2027.pdf" },
-      { name: "Disertaciones Platón Modelo 2026", path: "Disertaciones Platón.pdf" },
-      { name: "La teoría de las ideas en 3 folios con rúbricas", path: "LA TEORÍA DE LAS IDEAS EN 3 FOLIOS con rúbricas.pdf" },
-      { name: "Texto de Platón PAU 2025", path: "Texto de Platón PAU 2025.pdf" },
-      { name: "Teoría de las ideas: ítems (lista)", path: "Platon_items_lista.pdf" },
-      { name: "Teoría de las ideas: ítems (marcado en el texto)", path: "Platon_items_marcado.pdf" },
-      { name: "Interpretación del texto platónico", path: "Interpretación del texto platónico.pdf", url: "https://claude.ai/artifact/FkyopYbGB2hbdz2GPDe6aB#mapa" },
-      { name: "Disertacion1_Platon_machismo_350", path: "Disertacion2_Platon_machismo_corrupcion.pdf" },
-      { name: "Disertaciones 2 y 3 sobre las fake news en Platón", path: "Disertaciones_fake_news_Platon.pdf" },
-      { name: "Disertaciones_Platon_rubrica_oficial", path: "Disertaciones_Platon_rubrica_oficial.pdf" },
+      { section: "Análisis del texto", name: "Texto de Platón PAU 2025", path: "Texto de Platón PAU 2025.pdf" },
+      { section: "Análisis del texto", name: "Análisis del texto de Platón", path: "Análisis del texto de Platón.pdf" },
+      { section: "Análisis del texto", name: "Interpretación del texto platónico", path: "Interpretación del texto platónico.pdf", url: "https://claude.ai/artifact/FkyopYbGB2hbdz2GPDe6aB#mapa" },
+      { section: "Contextualización filosófica", name: "Contextualización filosófica de Platón", path: "Contextualización filosófica de Platón.pdf" },
+      { section: "Contextualización filosófica", name: "Contextualizacion_Platon_modelos_30_lineas", path: "Contextualizacion_Platon_modelos_30_lineas.pdf" },
+      { section: "Contextualización filosófica", name: "Contextualizacion_amplia de Platon mejorada con claude 2027", path: "Contextualizacion_amplia de Platon mejorada con claude 2027.pdf" },
+      { section: "Tema y disertaciones", name: "La teoría de las ideas en 3 folios con rúbricas", path: "LA TEORÍA DE LAS IDEAS EN 3 FOLIOS con rúbricas.pdf" },
+      { section: "Tema y disertaciones", name: "Teoría de las ideas: ítems (lista)", path: "Platon_items_lista.pdf" },
+      { section: "Tema y disertaciones", name: "Teoría de las ideas: ítems (marcado en el texto)", path: "Platon_items_marcado.pdf" },
+      { section: "Tema y disertaciones", name: "Disertaciones Platón Modelo 2026", path: "Disertaciones Platón.pdf" },
+      { section: "Tema y disertaciones", name: "Disertacion1_Platon_machismo_350", path: "Disertacion2_Platon_machismo_corrupcion.pdf" },
+      { section: "Tema y disertaciones", name: "Disertaciones 2 y 3 sobre las fake news en Platón", path: "Disertaciones_fake_news_Platon.pdf" },
+      { section: "Tema y disertaciones", name: "Disertaciones_Platon_rubrica_oficial", path: "Disertaciones_Platon_rubrica_oficial.pdf" },
     ]
   },
   {
@@ -1219,7 +1230,8 @@ function openAuthor(index) {
       </div>
     `;
   } else {
-    filesList.innerHTML = author.files.map(file => `
+    filesList.innerHTML = author.files.map((file, i) => `
+      ${file.section && file.section !== (author.files[i-1] || {}).section ? `<h3 class="files-section">${file.section}</h3>` : ''}
       <div class="file-item">
         <div class="file-icon">${pdfSVG}</div>
         <div class="file-info">
