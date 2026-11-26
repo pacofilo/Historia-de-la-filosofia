@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Disertaciones de Aristóteles</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&display=swap" rel="stylesheet">
+<style>
+/* VOICE: claro y cercano, de aula: guía para que el alumnado de 2º de Bachillerato entienda y recuerde las tres disertaciones.
+   IDEA: la ficha-esquema de la rúbrica PAU: tres pasos de color (plantear → tesis → argumentos), repetidos en cada disertación.
+   PICTURE: un dibujo por disertación: círculos de la comunidad; ley y virtud sosteniendo el buen gobierno; la balanza del término medio.
+   COLOUR and TYPE: crema de la rúbrica, tinta azul noche; rojo, naranja y verde de los tres pasos. Poppins + Source Serif.
+   LAYOUT: portada con índice de las tres; cada disertación con cabecera, tres pasos, glosario y seis frases; menú fijo arriba. */
+:root{color-scheme:light dark;--bg:light-dark(#fbf8f3,#14181f);--card:light-dark(#ffffff,#1d232d);--ink:light-dark(#1e2a3f,#e9e6df);--soft:light-dark(#5b6476,#a9b0bd);--line:light-dark(#e6e0d6,#2c3442);
+--s1:#ff5a2c;--s2:#f29a1f;--s3:#2f8a52;--s2t:light-dark(#b8700c,#ffbe5c);--lila:light-dark(#f1e6f3,#2d2433);--lilat:light-dark(#8e4c9e,#d5a6e0);--top:light-dark(rgba(251,248,243,.93),rgba(20,24,31,.93))}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:72px;scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+body{margin:0;background:var(--bg);color:var(--ink);font:17px/1.6 "Source Serif 4",Georgia,serif;overflow-x:clip}
+h1,h2,h3,.sans{font-family:Poppins,system-ui,sans-serif}
+.band{padding:clamp(28px,4vw,60px) max(5vw,16px)}
+.wrap{max-width:1180px;margin:0 auto}
+/* menú superior */
+.topnav{position:sticky;top:0;z-index:5;background:var(--top);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.topnav .wrap{display:flex;flex-wrap:wrap;gap:6px;align-items:center;padding:8px max(5vw,16px)}
+.topnav a{font:600 14px Poppins,sans-serif;color:var(--ink);text-decoration:none;padding:9px 12px;border-radius:10px;min-height:40px;display:inline-flex;align-items:center}
+.topnav a:hover,.topnav a:focus-visible{background:var(--lila);color:var(--lilat);outline:none}
+.topnav .home{margin-right:auto}
+@media(max-width:600px){.topnav{position:static}.topnav .home{flex-basis:100%}}
+/* portada */
+.cover h1{font-size:clamp(34px,5.4vw,52px);line-height:1.05;margin:0 0 12px;text-wrap:balance}
+.idx{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px;margin-top:26px}
+.idx a{display:flex;flex-direction:column;background:var(--card);border:1px solid var(--line);border-radius:20px;padding:20px;color:var(--ink);text-decoration:none;transition:transform .2s}
+.idx a:hover{transform:translateY(-3px)}
+.idx a:focus-visible{outline:3px solid var(--ink);outline-offset:3px}
+.idx .no{font:700 13px Poppins,sans-serif;color:var(--soft)}
+.idx h2{font-size:21px;line-height:1.2;margin:4px 0 8px}
+.idx p{margin:0 0 12px;font-size:15.5px;color:var(--soft)}
+.idx .mini{height:120px;margin:0 0 14px}
+.idx .mini svg{width:100%;height:100%}
+.idx .go{margin-top:auto;font:600 14px Poppins,sans-serif;color:var(--s3)}
+.legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:22px}
+.legend span{color:#fff;border-radius:12px;padding:8px 14px;font:600 14px Poppins,sans-serif}
+/* disertación */
+.dis{border-top:6px solid var(--line)}
+.kicker{font:600 14px Poppins,sans-serif;color:var(--soft);margin:0 0 6px}
+.dis h1{font-size:clamp(32px,5vw,50px);line-height:1.05;margin:0 0 14px;text-wrap:balance}
+.hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:clamp(20px,4vw,48px);align-items:center}
+.frase{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:18px 20px;margin-top:16px}
+.frase b{font-family:Poppins,sans-serif}
+.fig{position:relative;min-height:360px}
+.fig svg{position:absolute;inset:0;width:100%;height:100%}
+.steps-nav{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}
+.steps-nav a{flex:1 1 180px;display:flex;align-items:center;gap:10px;color:#fff;text-decoration:none;border-radius:14px;padding:12px 14px;font:600 15px/1.25 Poppins,sans-serif;min-height:44px}
+.steps-nav a span{font-size:28px;font-weight:700}
+.n1{background:var(--s1)}.n2{background:var(--s2)}.n3{background:var(--s3)}
+.steps-nav a:focus-visible,button:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+section.paso{border-top:1px solid var(--line)}
+.paso h2{display:flex;align-items:center;gap:14px;font-size:clamp(24px,3.2vw,34px);line-height:1.1;margin:0 0 6px}
+.paso h2 .num{flex:none;width:52px;height:52px;border-radius:14px;color:#fff;display:grid;place-items:center;font-size:28px}
+.lead{color:var(--soft);margin:0 0 20px;max-width:70ch}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+.card p{margin:0}
+.tag{display:inline-block;font:600 13px Poppins,sans-serif;border-radius:999px;padding:3px 12px;margin-bottom:8px}
+.tl{background:var(--lila);color:var(--lilat)}.tr{background:var(--s1);color:#fff}.tg{background:var(--s3);color:#fff}
+.q{font-size:clamp(20px,2.4vw,26px);line-height:1.3;font-family:Poppins,sans-serif;font-weight:600;margin:20px 0 0;padding:18px 22px;border-radius:16px;color:#fff;background:var(--s1);text-wrap:balance}
+.tesis{font-size:clamp(19px,2.2vw,23px);line-height:1.4;padding:18px 22px;border-radius:16px;border:3px solid var(--s2);background:var(--card);margin:0 0 18px}
+.pill{background:var(--lila);color:var(--lilat);text-align:center;border-radius:999px;padding:6px 10px;font:600 14px Poppins,sans-serif;margin-bottom:10px}
+.chain{list-style:none;padding:0;margin:0 0 18px;display:grid;gap:10px;counter-reset:c}
+.chain li{counter-increment:c;display:grid;grid-template-columns:40px minmax(0,1fr);gap:12px;align-items:start;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:12px 16px}
+.chain li::before{content:counter(c);font:700 18px Poppins,sans-serif;color:#fff;background:var(--s3);width:34px;height:34px;border-radius:10px;display:grid;place-items:center}
+.vs .card:first-child{border-left:6px solid var(--s1)}
+.vs .card:last-child{border-left:6px solid var(--s3)}
+.concl{margin-top:18px;border:3px dashed var(--s2);border-radius:16px;padding:16px 20px;background:var(--card)}
+h3.sub{font-size:18px;margin:0 0 10px}
+h2.small{font-size:clamp(22px,2.8vw,30px)}
+.gloss{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:12px}
+.gloss button{all:unset;cursor:pointer;display:block;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;min-height:44px}
+.gloss button b{font-family:Poppins,sans-serif;display:block}
+.gloss button i{color:var(--soft);font-size:14px}
+.gloss button p{margin:6px 0 0;font-size:15px}
+.gloss button[aria-expanded=false] p{display:none}
+.skel{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+.skel li{display:flex;gap:12px;align-items:baseline;padding:10px 14px;border-radius:12px;background:var(--card);border:1px solid var(--line)}
+.skel li span{flex:none;font:700 13px Poppins,sans-serif;color:#fff;border-radius:8px;padding:3px 9px}
+.back{display:inline-block;margin-top:18px;font:600 14px Poppins,sans-serif;color:var(--s3);text-decoration:none;padding:10px 0}
+footer{color:var(--soft);font-size:14px;text-align:center}
+@media(max-width:820px){.hero,.grid3,.grid2,.idx{grid-template-columns:minmax(0,1fr)}.fig{min-height:300px}}
+@media (prefers-reduced-motion:no-preference){.pop{transform-box:fill-box;transform-origin:center;animation:pop .9s ease-out both}@keyframes pop{from{opacity:0;transform:scale(.85)}to{opacity:1;transform:none}}}
+</style>
+</head>
+<body>
+
+<nav class="topnav" aria-label="Índice"><div class="wrap">
+  <a class="home" href="#inicio">Disertaciones de Aristóteles</a>
+  <a href="#d1">1 · Polis global</a>
+  <a href="#d2">2 · Corrupción</a>
+  <a href="#d3">3 · Estado y libertad</a>
+</div></nav>
+
+<!-- ======================= PORTADA / ÍNDICE ======================= -->
+<header class="band cover" id="inicio"><div class="wrap">
+  <p class="kicker">Historia de la Filosofía · 2º Bachillerato · Modelo PAU 2027 · Ejercicio 3</p>
+  <h1>Tres disertaciones sobre Aristóteles, explicadas paso a paso</h1>
+  <p class="lead" style="margin:0">Cada disertación relaciona a Aristóteles con un problema de actualidad y sigue los tres pasos que pide la PAU. Elige una para ver sus ideas principales, su tesis, sus argumentos y los conceptos que hay que dominar.</p>
+  <div class="legend" aria-label="Los tres pasos">
+    <span class="n1">1 · Plantear un problema</span><span class="n2">2 · Formular una tesis propia</span><span class="n3">3 · Justificarla mediante argumentos</span>
+  </div>
+  <div class="idx">
+    <a href="#d1"><span class="no">Disertación 1</span><h2>¿Una polis para toda la humanidad?</h2>
+      <div class="mini"><svg viewBox="0 0 200 120" aria-hidden="true"><circle cx="100" cy="60" r="56" fill="none" stroke="#2f8a52" stroke-width="2.5" stroke-dasharray="6 5"/><circle cx="100" cy="60" r="40" fill="#f29a1f" fill-opacity=".25" stroke="#f29a1f" stroke-width="2.5"/><circle cx="100" cy="60" r="24" fill="#ff5a2c" fill-opacity=".2" stroke="#ff5a2c" stroke-width="2"/><circle cx="100" cy="60" r="11" fill="#1e2a3f"/></svg></div>
+      <p>Clima, pandemias e IA: ¿debe la humanidad ser una sola comunidad política?</p><span class="go">Ver disertación →</span></a>
+    <a href="#d2"><span class="no">Disertación 2</span><h2>¿Bastan las leyes contra la corrupción?</h2>
+      <div class="mini"><svg viewBox="0 0 200 120" aria-hidden="true"><polygon points="40,38 100,10 160,38" fill="#1e2a3f"/><rect x="52" y="44" width="26" height="60" rx="3" fill="#2e86ab"/><rect x="122" y="44" width="26" height="60" rx="3" fill="#2f8a52"/><rect x="36" y="104" width="128" height="8" rx="2" fill="#7a8194"/></svg></div>
+      <p>Leyes, controles y virtud: qué hace falta para un buen gobierno.</p><span class="go">Ver disertación →</span></a>
+    <a href="#d3"><span class="no">Disertación 3</span><h2>¿Es el Estado enemigo de la libertad?</h2>
+      <div class="mini"><svg viewBox="0 0 200 120" aria-hidden="true"><line x1="20" y1="70" x2="180" y2="70" stroke="#7a8194" stroke-width="4" stroke-linecap="round"/><circle cx="24" cy="70" r="9" fill="#ff5a2c"/><circle cx="176" cy="70" r="9" fill="#ff5a2c"/><polygon points="100,40 112,62 88,62" fill="#2f8a52"/><circle cx="100" cy="70" r="11" fill="#2f8a52"/></svg></div>
+      <p>Milei y el individualismo radical frente al «animal político» y el término medio.</p><span class="go">Ver disertación →</span></a>
+  </div>
+</div></header>
+
+<!-- ======================= DISERTACIÓN 1 ======================= -->
+<article class="dis" id="d1">
+<header class="band"><div class="wrap hero">
+  <div>
+    <p class="kicker">Disertación 1 · Aristóteles y la globalización</p>
+    <h1>¿Una polis para toda la humanidad?</h1>
+    <p>Hay problemas que ningún país resuelve solo. La disertación se pregunta si, para afrontarlos, la humanidad debería convertirse en una sola comunidad política, como la polis de Aristóteles pero a escala planetaria.</p>
+    <div class="frase"><b>La idea en una frase:</b> no hace falta un Estado mundial, pero sí aprender a ser «animales políticos» a la vez de nuestra ciudad y del planeta.</div>
+    <nav class="steps-nav" aria-label="Pasos de la disertación 1">
+      <a class="n1" href="#d1-paso-1"><span>1</span>Plantear un problema</a>
+      <a class="n2" href="#d1-paso-2"><span>2</span>Formular una tesis propia</a>
+      <a class="n3" href="#d1-paso-3"><span>3</span>Justificarla con argumentos</a>
+    </nav>
+  </div>
+  <div class="fig" role="img" aria-label="Círculos concéntricos: familia, aldea, polis y humanidad">
+    <svg class="ink" viewBox="0 0 420 380" preserveAspectRatio="xMidYMid meet">
+      <circle class="pop" cx="210" cy="190" r="172" fill="none" stroke="#2f8a52" stroke-width="3" stroke-dasharray="9 7"/>
+      <circle class="pop" cx="210" cy="190" r="122" fill="#f29a1f" fill-opacity=".22" stroke="#f29a1f" stroke-width="3" style="animation-delay:.15s"/>
+      <circle class="pop" cx="210" cy="190" r="76" fill="#ff5a2c" fill-opacity=".16" stroke="#ff5a2c" stroke-width="2.5" style="animation-delay:.3s"/>
+      <circle class="pop" cx="210" cy="190" r="36" fill="#1e2a3f" fill-opacity=".85" style="animation-delay:.45s"/>
+      <text x="210" y="195" text-anchor="middle" font-family="Poppins" font-weight="600" font-size="12" fill="#fff">Familia</text>
+      <text x="210" y="138" text-anchor="middle" font-family="Poppins" font-weight="600" font-size="13" fill="currentColor">Aldea</text>
+      <text x="210" y="92" text-anchor="middle" font-family="Poppins" font-weight="700" font-size="15" fill="currentColor">Polis</text>
+      <text x="210" y="108" text-anchor="middle" font-family="Poppins" font-size="10.5" fill="currentColor" opacity=".75">autosuficiente en tiempos de Aristóteles</text>
+      <text x="210" y="40" text-anchor="middle" font-family="Poppins" font-weight="700" font-size="15" fill="#2f8a52">¿Humanidad?</text>
+      <text x="210" y="56" text-anchor="middle" font-family="Poppins" font-size="10.5" fill="#2f8a52">¿la única autosuficiente hoy?</text>
+      <text x="210" y="342" text-anchor="middle" font-family="Poppins" font-weight="600" font-size="11" fill="#2f8a52">clima · pandemias · IA</text>
+    </svg>
+  </div>
+</div></header>
+
+<section class="band paso" id="d1-paso-1"><div class="wrap">
+  <h2><span class="num n1">1</span>Plantear un problema</h2>
+  <p class="lead">Se parte de un hecho actual concreto, se muestra que nos afecta y se convierte en una pregunta filosófica.</p>
+  <div class="grid3">
+    <div class="card"><span class="tag tl">El hecho actual</span><p>La COVID-19, el calentamiento global y la inteligencia artificial no respetan fronteras: un virus no pasa por la aduana y las grandes tecnológicas operan en todo el planeta.</p></div>
+    <div class="card"><span class="tag tl">Por qué me afecta</span><p>En el instituto usamos herramientas de IA cuyas reglas nadie de aquí ha votado, y las DANA y sequías que sufrimos en Murcia tienen causas globales.</p></div>
+    <div class="card"><span class="tag tl">El conflicto</span><p>Los problemas son mundiales, pero las decisiones siguen siendo nacionales. ¿Quién debe decidir sobre lo que es de todos?</p></div>
+  </div>
+  <p class="q">¿Necesita la humanidad convertirse en una sola comunidad política para afrontar lo que ninguna nación resuelve por separado?</p>
+</div></section>
+
+<section class="band paso" id="d1-paso-2"><div class="wrap">
+  <h2><span class="num n2">2</span>Formular una tesis propia</h2>
+  <p class="lead">La PAU permite coincidir con el autor, discrepar de él o adoptar una posición intermedia, siempre justificándolo. Esta disertación elige la intermedia.</p>
+  <p class="tesis"><b class="sans">Mi tesis:</b> solo una comunidad que delibera sobre el bien común y educa en la virtud hace posible la vida buena; pero no es deseable una «polis mundial» única, sino una <b>cooperación entre comunidades políticas</b> con instituciones comunes.</p>
+  <div class="grid3">
+    <div><div class="pill">Coincido con Aristóteles en…</div><div class="card"><p>Que el ser humano es un animal político: necesita una comunidad que delibere sobre lo justo para vivir bien.</p></div></div>
+    <div><div class="pill">Discrepo de… (o matizo)</div><div class="card"><p>Que esa comunidad sea solo la ciudad pequeña de su época. Y de su exclusión de esclavos, mujeres y extranjeros.</p></div></div>
+    <div><div class="pill">Mi posición intermedia</div><div class="card"><p>Ni un Estado mundial ni cada país por su cuenta: decidir cerca lo cercano y acordar en común lo común.</p></div></div>
+  </div>
+</div></section>
+
+<section class="band paso" id="d1-paso-3"><div class="wrap">
+  <h2><span class="num n3">3</span>Justificarla mediante argumentos</h2>
+  <p class="lead">Los conceptos de Aristóteles no se exponen como un tema, sino que funcionan como razones a favor de la tesis. Después se responde a una objeción y se pone un ejemplo propio.</p>
+  <h3 class="sub">El argumento, paso a paso</h3>
+  <ol class="chain">
+    <li><span>El ser humano es <b>animal político</b> (zoon politikon) porque tiene <b>logos</b>: palabra para deliberar sobre lo justo, no solo voz para expresar placer y dolor.</span></li>
+    <li><span>La familia y la aldea cubren necesidades, pero solo la <b>polis</b> es <b>autosuficiente</b> (autárkeia) y permite no solo vivir, sino «vivir bien».</span></li>
+    <li><span>Hoy <b>ningún Estado es autosuficiente</b> frente al clima o las pandemias: la comunidad capaz de la autárkeia ha cambiado de escala.</span></li>
+    <li><span>Por eso hay que ampliar la <b>amistad cívica</b> (philía) y la <b>prudencia</b> (phrónesis) más allá de las fronteras.</span></li>
+    <li><span>Y reducir la <b>desigualdad entre países</b>: Aristóteles advertía que una comunidad dividida entre muy ricos y muy pobres acaba en revueltas.</span></li>
+  </ol>
+  <div class="grid2 vs">
+    <div class="card"><span class="tag tr">Objeción</span><p>El propio Aristóteles diría que una comunidad demasiado grande no es una polis: «con cien mil ya no sería una ciudad», porque los ciudadanos deben conocerse y deliberar juntos. Un gobierno mundial sería lejano y poco democrático.</p></div>
+    <div class="card"><span class="tag tg">Respuesta</span><p>Es una objeción seria, y por eso la tesis no defiende un Estado mundial. Defiende decidir cerca lo que puede decidirse cerca y acordar en común lo que nadie puede resolver solo.</p></div>
+  </div>
+  <div class="card" style="margin-top:16px"><span class="tag tl">Ejemplo propio</span><p>La <b>Unión Europea</b>: los Estados conservan sus parlamentos, pero comparten normas que ninguno podría imponer solo, como el <b>Reglamento de Protección de Datos</b>, que obliga a gigantes como Google o Meta a respetar nuestra privacidad. Por separado, España no tendría fuerza para imponerlo; juntos, unos 450 millones de europeos sí.</p></div>
+  <div class="concl"><b class="sans" style="color:var(--s2t)">Conclusión (vuelta al paso 2):</b> la humanidad no necesita fundirse en una sola polis, porque perdería la deliberación cercana que Aristóteles valoraba; pero sí debe aprender a ser animal político a la vez de su ciudad y del planeta.</div>
+</div></section>
+
+<section class="band paso"><div class="wrap">
+  <h2 class="small">Conceptos que hay que dominar</h2>
+  <p class="lead">Pulsa cada concepto para ver qué significa y para qué sirve en la disertación.</p>
+  <div class="gloss" data-g="1"></div>
+  <h2 class="small" style="margin-top:34px">La disertación en seis frases</h2>
+  <ol class="skel">
+    <li><span class="n1">1</span>Clima, pandemias e IA son problemas que ningún país resuelve solo, y me afectan.</li>
+    <li><span class="n1">1</span>¿Debe la humanidad ser una sola comunidad política?</li>
+    <li><span class="n2">2</span>Mi tesis: no una polis mundial, sino cooperación entre comunidades.</li>
+    <li><span class="n3">3</span>Somos animales políticos, y hoy solo es autosuficiente la cooperación global.</li>
+    <li><span class="n3">3</span>Objeción: demasiado grande para deliberar. Respuesta: decidir por niveles, como en la UE.</li>
+    <li><span class="n2">2</span>Conclusión: ser animal político de la ciudad y del planeta.</li>
+  </ol>
+  <a class="back" href="#inicio">↑ Volver al índice</a>
+</div></section>
+</article>
+
+<!-- ======================= DISERTACIÓN 2 ======================= -->
+<article class="dis" id="d2">
+<header class="band"><div class="wrap hero">
+  <div>
+    <p class="kicker">Disertación 2 · Aristóteles y la corrupción política</p>
+    <h1>¿Bastan las leyes contra la corrupción?</h1>
+    <p>España tiene leyes de transparencia y fiscales anticorrupción, pero los casos siguen apareciendo. La disertación se pregunta si basta con controles o si hace falta, además, virtud en quienes gobiernan y en quienes los eligen.</p>
+    <div class="frase"><b>La idea en una frase:</b> las leyes son imprescindibles, pero no se aplican solas; el buen gobierno se apoya a la vez en la ley y en la virtud.</div>
+    <nav class="steps-nav" aria-label="Pasos de la disertación 2">
+      <a class="n1" href="#d2-paso-1"><span>1</span>Plantear un problema</a>
+      <a class="n2" href="#d2-paso-2"><span>2</span>Formular una tesis propia</a>
+      <a class="n3" href="#d2-paso-3"><span>3</span>Justificarla con argumentos</a>
+    </nav>
+  </div>
+  <div class="fig" role="img" aria-label="Un templo: el buen gobierno se sostiene sobre dos columnas, la ley y la virtud">
+    <svg class="ink" viewBox="0 0 420 380" preserveAspectRatio="xMidYMid meet">
+      <polygon class="pop" points="70,118 210,48 350,118" fill="#1e2a3f"/>
+      <text x="210" y="104" text-anchor="middle" font-family="Poppins" font-weight="700" font-size="16" fill="#fff">Buen gobierno</text>
+      <rect x="62" y="118" width="296" height="14" rx="3" fill="#1e2a3f" fill-opacity=".8"/>
+      <rect class="pop" x="96" y="140" width="64" height="168" rx="6" fill="#2e86ab" style="animation-delay:.15s"/>
+      <rect class="pop" x="260" y="140" width="64" height="168" rx="6" fill="#2f8a52" style="animation-delay:.3s"/>
+      <text x="128" y="230" text-anchor="middle" font-family="Poppins" font-weight="700" font-size="17" fill="#fff" transform="rotate(-90 128 225)">LEY</text>
+      <text x="292" y="230" text-anchor="middle" font-family="Poppins" font-weight="700" font-size="17" fill="#fff" transform="rotate(-90 292 225)">VIRTUD</text>
+      <rect x="56" y="308" width="308" height="16" rx="3" fill="#7a8194"/>
+      <text x="128" y="346" text-anchor="middle" font-family="Poppins" font-size="11" fill="currentColor">transparencia · controles</text>
+      <text x="128" y="361" text-anchor="middle" font-family="Poppins" font-size="11" fill="currentColor">rendición de cuentas</text>
+      <text x="292" y="346" text-anchor="middle" font-family="Poppins" font-size="11" fill="currentColor">educación · hábito</text>
+      <text x="292" y="361" text-anchor="middle" font-family="Poppins" font-size="11" fill="currentColor">prudencia · justicia</text>
+      <text x="210" y="225" text-anchor="middle" font-family="Poppins" font-weight="700" font-size="26" fill="#f29a1f">+</text>
+    </svg>
+  </div>
+</div></header>
+
+<section class="band paso" id="d2-paso-1"><div class="wrap">
+  <h2><span class="num n1">1</span>Plantear un problema</h2>
+  <p class="lead">Un hecho concreto, la experiencia cercana del alumno y una pregunta filosófica.</p>
+  <div class="grid3">
+    <div class="card"><span class="tag tl">El hecho actual</span><p>España cuenta con la Ley 19/2013 de transparencia, oficinas antifraude y una Fiscalía Anticorrupción; aun así, siguen apareciendo casos de corrupción en partidos de distinto signo.</p></div>
+    <div class="card"><span class="tag tl">Por qué me afecta</span><p>Entre muchos jóvenes se repite que «todos roban», lo que lleva a desentenderse de la política, y se acepta el «enchufe» como algo normal.</p></div>
+    <div class="card"><span class="tag tl">El conflicto</span><p>Si ya hay leyes y controles, ¿por qué no funcionan del todo? ¿Falta más ley o falta otra cosa?</p></div>
+  </div>
+  <p class="q">¿Bastan las leyes y los controles para acabar con la corrupción, o hace falta además virtud en quienes gobiernan y en quienes los eligen?</p>
+</div></section>
+
+<section class="band paso" id="d2-paso-2"><div class="wrap">
+  <h2><span class="num n2">2</span>Formular una tesis propia</h2>
+  <p class="lead">Aquí la tesis coincide con Aristóteles en lo esencial, pero añade un matiz propio.</p>
+  <p class="tesis"><b class="sans">Mi tesis:</b> Aristóteles acierta: sin virtud no hay buen gobierno, porque ninguna ley se aplica sola. Pero, como hoy no podemos dar por supuesta la virtud de nadie, <b>la educación en la virtud y los controles institucionales deben ir siempre juntos</b>.</p>
+  <div class="grid3">
+    <div><div class="pill">Coincido con Aristóteles en…</div><div class="card"><p>Que la corrupción nace de un carácter sin virtud, y que la educación cívica es imprescindible.</p></div></div>
+    <div><div class="pill">Matizo…</div><div class="card"><p>Que no basta con confiar en «los mejores»: la virtud de quien gobierna hay que exigirla y vigilarla.</p></div></div>
+    <div><div class="pill">Mi posición</div><div class="card"><p>Ni la ley sin virtud, ni la virtud sin ley: las dos columnas a la vez.</p></div></div>
+  </div>
+</div></section>
+
+<section class="band paso" id="d2-paso-3"><div class="wrap">
+  <h2><span class="num n3">3</span>Justificarla mediante argumentos</h2>
+  <p class="lead">Cada concepto de Aristóteles explica por qué la corrupción no se cura solo con leyes.</p>
+  <h3 class="sub">El argumento, paso a paso</h3>
+  <ol class="chain">
+    <li><span>Aristóteles distingue <b>regímenes rectos</b>, que buscan el bien común (monarquía, aristocracia, politeia), y <b>desviados</b>, que buscan el interés de quien manda (tiranía, oligarquía, democracia). La corrupción es lo que hace <b>degenerar</b> un régimen recto.</span></li>
+    <li><span>Frente al intelectualismo moral, Aristóteles sabe que podemos conocer el bien y no hacerlo: es la <b>akrasía</b>. El corrupto sabe que obra mal; por eso no basta con conocer la ley.</span></li>
+    <li><span>El corrupto puede ser hábil, pero no <b>prudente</b>: la prudencia (phrónesis) exige un fin recto.</span></li>
+    <li><span>Su error es la <b>crematística</b>: tratar la riqueza, que es un medio limitado, como un fin sin límite.</span></li>
+    <li><span>Por eso Aristóteles confía en la <b>educación</b> (la virtud se adquiere por hábito) y en <b>leyes</b> que impidan que los cargos sean fuente de lucro, mientras la <b>justicia correctiva</b> restituye lo sustraído.</span></li>
+  </ol>
+  <div class="grid2 vs">
+    <div class="card"><span class="tag tr">Objeción</span><p>Con James Madison: «si los hombres fueran ángeles, no haría falta ningún gobierno». Como no podemos fiarnos de la virtud de nadie, solo funcionan los contrapesos; apelar a la virtud sería ingenuo.</p></div>
+    <div class="card"><span class="tag tg">Respuesta</span><p>Tiene parte de razón, y por eso la tesis exige también controles. Pero las leyes las aplican y vigilan personas: un juez o un interventor sin virtud convierten el mejor control en papel mojado.</p></div>
+  </div>
+  <div class="card" style="margin-top:16px"><span class="tag tl">Ejemplo propio</span><p>La <b>elección del delegado de clase</b>: ninguna norma impide votar al amigo en lugar de al más capaz; que salga bien depende de que cada uno piense en el grupo. Además, la corrupción alimenta la desconfianza y, con ella, la <b>demagogia</b>, que según Aristóteles sustituye la deliberación por las pasiones y gobierna para una parte, no para todos.</p></div>
+  <div class="concl"><b class="sans" style="color:var(--s2t)">Conclusión (vuelta al paso 2):</b> las leyes son imprescindibles, pero no suficientes: hace falta una ciudadanía virtuosa que no diga «todos roban», sino que exija que nadie lo haga.</div>
+</div></section>
+
+<section class="band paso"><div class="wrap">
+  <h2 class="small">Conceptos que hay que dominar</h2>
+  <p class="lead">Pulsa cada concepto para ver qué significa y para qué sirve en la disertación.</p>
+  <div class="gloss" data-g="2"></div>
+  <h2 class="small" style="margin-top:34px">La disertación en seis frases</h2>
+  <ol class="skel">
+    <li><span class="n1">1</span>Hay leyes de transparencia, pero la corrupción sigue, y entre jóvenes se dice «todos roban».</li>
+    <li><span class="n1">1</span>¿Bastan las leyes o hace falta virtud?</li>
+    <li><span class="n2">2</span>Mi tesis: virtud y controles deben ir siempre juntos.</li>
+    <li><span class="n3">3</span>La corrupción degenera los regímenes; el corrupto sabe que obra mal (akrasía) y confunde medios con fines (crematística).</li>
+    <li><span class="n3">3</span>Objeción (Madison): solo valen los contrapesos. Respuesta: los controles los aplican personas.</li>
+    <li><span class="n2">2</span>Conclusión: no decir «todos roban», sino exigir que nadie lo haga.</li>
+  </ol>
+  <a class="back" href="#inicio">↑ Volver al índice</a>
+</div></section>
+</article>
+
+<!-- ======================= DISERTACIÓN 3 ======================= -->
+<article class="dis" id="d3">
+<header class="band"><div class="wrap hero">
+  <div>
+    <p class="kicker">Disertación 3 · Aristóteles frente al individualismo radical</p>
+    <h1>¿Es el Estado enemigo de la libertad?</h1>
+    <p>Javier Milei ha hecho del recorte del Estado su bandera. La disertación se pregunta si el Estado es un obstáculo para la libertad de cada uno o la condición para que todos podamos vivir bien.</p>
+    <div class="frase"><b>La idea en una frase:</b> el Estado no es enemigo de la libertad sino su condición, siempre que se mantenga en el término medio.</div>
+    <nav class="steps-nav" aria-label="Pasos de la disertación 3">
+      <a class="n1" href="#d3-paso-1"><span>1</span>Plantear un problema</a>
+      <a class="n2" href="#d3-paso-2"><span>2</span>Formular una tesis propia</a>
+      <a class="n3" href="#d3-paso-3"><span>3</span>Justificarla con argumentos</a>
+    </nav>
+  </div>
+  <div class="fig" role="img" aria-label="Una balanza: entre el Estado que lo absorbe todo y el Estado mínimo está el término medio">
+    <svg class="ink" viewBox="0 0 420 380" preserveAspectRatio="xMidYMid meet">
+      <line x1="40" y1="190" x2="380" y2="190" stroke="#7a8194" stroke-width="8" stroke-linecap="round"/>
+      <polygon class="pop" points="210,196 250,290 170,290" fill="#2f8a52"/>
+      <rect x="140" y="290" width="140" height="12" rx="4" fill="#1e2a3f" fill-opacity=".8"/>
+      <circle class="pop" cx="60" cy="190" r="26" fill="#ff5a2c" style="animation-delay:.15s"/>
+      <circle class="pop" cx="360" cy="190" r="26" fill="#ff5a2c" style="animation-delay:.15s"/>
+      <circle class="pop" cx="210" cy="190" r="22" fill="#2f8a52" style="animation-delay:.3s"/>
+      <text x="60" y="140" text-anchor="middle" font-family="Poppins" font-weight="700" font-size="13" fill="#ff5a2c">Exceso</text>
+      <text x="60" y="244" text-anchor="middle" font-family="Poppins" font-size="11.5" fill="currentColor">Estado que lo</text>
+      <text x="60" y="259" text-anchor="middle" font-family="Poppins" font-size="11.5" fill="currentColor">absorbe todo</text>
+      <text x="360" y="140" text-anchor="middle" font-family="Poppins" font-weight="700" font-size="13" fill="#ff5a2c">Defecto</text>
+      <text x="360" y="244" text-anchor="middle" font-family="Poppins" font-size="11.5" fill="currentColor">Estado mínimo:</text>
+      <text x="360" y="259" text-anchor="middle" font-family="Poppins" font-size="11.5" fill="currentColor">cada uno solo</text>
+      <text x="210" y="120" text-anchor="middle" font-family="Poppins" font-weight="700" font-size="16" fill="#2f8a52">Término medio</text>
+      <text x="210" y="138" text-anchor="middle" font-family="Poppins" font-size="11" fill="currentColor">educa y garantiza bienes básicos,</text>
+      <text x="210" y="153" text-anchor="middle" font-family="Poppins" font-size="11" fill="currentColor">sin decidir por nosotros</text>
+      <text x="210" y="340" text-anchor="middle" font-family="Poppins" font-size="11" fill="currentColor" opacity=".8">mesótes: la virtud está en el medio</text>
+    </svg>
+  </div>
+</div></header>
+
+<section class="band paso" id="d3-paso-1"><div class="wrap">
+  <h2><span class="num n1">1</span>Plantear un problema</h2>
+  <p class="lead">Un caso político actual, cómo afecta a la vida del alumno y la pregunta de fondo.</p>
+  <div class="grid3">
+    <div class="card"><span class="tag tl">El hecho actual</span><p>Javier Milei, presidente de Argentina desde diciembre de 2023, redujo los ministerios de dieciocho a nueve en su primera medida de gobierno. El debate sobre si el Estado debe hacer más o menos también existe en España.</p></div>
+    <div class="card"><span class="tag tl">Por qué me afecta</span><p>Estudio en un instituto público, aspiro a una beca para la universidad y mi familia depende de la sanidad pública.</p></div>
+    <div class="card"><span class="tag tl">El conflicto</span><p>Para unos, el Estado limita la libertad; para otros, sin él muchos no podrían ejercerla.</p></div>
+  </div>
+  <p class="q">¿Es el Estado un obstáculo para la libertad individual o la condición para vivir bien?</p>
+</div></section>
+
+<section class="band paso" id="d3-paso-2"><div class="wrap">
+  <h2><span class="num n2">2</span>Formular una tesis propia</h2>
+  <p class="lead">Posición intermedia: se da la razón a Aristóteles frente al individualismo radical, pero se acepta una parte de la crítica liberal.</p>
+  <p class="tesis"><b class="sans">Mi tesis:</b> Aristóteles tiene razón frente al individualismo radical: sin una comunidad política que eduque y garantice bienes básicos, la libertad queda vacía para quienes menos tienen. Pero <b>el Estado no debe absorberlo todo</b>.</p>
+  <div class="grid3">
+    <div><div class="pill">Coincido con Aristóteles en…</div><div class="card"><p>Que somos animales políticos y que la comunidad existe para «vivir bien», no solo para intercambiar.</p></div></div>
+    <div><div class="pill">Acepto de los liberales…</div><div class="card"><p>Que el Estado tiene límites: un Estado ineficaz o que lo controla todo también daña.</p></div></div>
+    <div><div class="pill">Mi posición intermedia</div><div class="card"><p>Un Estado que no decida por nosotros, sino que haga posible que cada uno decida bien.</p></div></div>
+  </div>
+</div></section>
+
+<section class="band paso" id="d3-paso-3"><div class="wrap">
+  <h2><span class="num n3">3</span>Justificarla mediante argumentos</h2>
+  <p class="lead">Los conceptos aristotélicos muestran por qué el individualismo radical se equivoca sobre la naturaleza humana.</p>
+  <h3 class="sub">El argumento, paso a paso</h3>
+  <ol class="chain">
+    <li><span>El ser humano es <b>animal político</b>: quien no necesita la comunidad es «<b>o una bestia o un dios</b>».</span></li>
+    <li><span>La <b>polis</b> no es un contrato comercial entre individuos: es <b>anterior al individuo</b> como el todo a la parte, y su fin no es solo sobrevivir o intercambiar, sino «<b>vivir bien</b>».</span></li>
+    <li><span>Por eso la <b>educación</b> es función fundamental de un Estado bien constituido, que debe procurar <b>bienes del alma, corporales y exteriores</b>.</span></li>
+    <li><span>Para el <b>anarcocapitalismo</b> que defiende Milei, en cambio, la sociedad es fruto de intercambios voluntarios y el Estado, una imposición.</span></li>
+    <li><span>Aristóteles vería en la desregulación absoluta un extremo vicioso: la virtud está en el <b>término medio</b> (mesótes) entre la injerencia excesiva y el abandono de los más frágiles.</span></li>
+  </ol>
+  <div class="grid2 vs">
+    <div class="card"><span class="tag tr">Objeción</span><p>El propio Aristóteles defiende la <b>propiedad privada</b> frente al comunismo de Platón, porque «lo que es común a muchos recibe el menor cuidado». Un liberal podría reclamarlo para su causa.</p></div>
+    <div class="card"><span class="tag tg">Respuesta</span><p>Es cierto, y prueba que no era estatista. Pero su fórmula vuelve a ser un término medio: propiedad privada con uso común mediante la generosidad, y condena de la <b>crematística</b>, el afán ilimitado de riqueza.</p></div>
+  </div>
+  <div class="card" style="margin-top:16px"><span class="tag tl">Ejemplo propio</span><p>Una <b>beca</b> no le dice a nadie qué estudiar, pero hace real la libertad de elegir carrera. Ese es el Estado aristotélico: el que crea las condiciones para decidir bien. Y exigirle eficiencia no es estar contra él, sino querer que cumpla su fin.</p></div>
+  <div class="concl"><b class="sans" style="color:var(--s2t)">Conclusión (vuelta al paso 2):</b> el Estado no es enemigo de la libertad, sino su condición, siempre que se mantenga en el término medio. Desmantelarlo no nos haría más libres, sino más solos y más desiguales.</div>
+</div></section>
+
+<section class="band paso"><div class="wrap">
+  <h2 class="small">Conceptos que hay que dominar</h2>
+  <p class="lead">Pulsa cada concepto para ver qué significa y para qué sirve en la disertación.</p>
+  <div class="gloss" data-g="3"></div>
+  <h2 class="small" style="margin-top:34px">La disertación en seis frases</h2>
+  <ol class="skel">
+    <li><span class="n1">1</span>Milei recorta el Estado; yo estudio en un instituto público y aspiro a una beca.</li>
+    <li><span class="n1">1</span>¿El Estado limita la libertad o la hace posible?</li>
+    <li><span class="n2">2</span>Mi tesis: sin comunidad la libertad queda vacía, pero el Estado no debe absorberlo todo.</li>
+    <li><span class="n3">3</span>Somos animales políticos; la polis existe para «vivir bien»; la virtud está en el término medio.</li>
+    <li><span class="n3">3</span>Objeción: Aristóteles defiende la propiedad privada. Respuesta: con uso común y sin crematística.</li>
+    <li><span class="n2">2</span>Conclusión: el Estado en su justa medida es condición de la libertad.</li>
+  </ol>
+  <a class="back" href="#inicio">↑ Volver al índice</a>
+</div></section>
+</article>
+
+<footer class="band">Material de clase · Francisco Jiménez Amor · IES Alquipir (Cehegín) · Historia de la Filosofía, 2º Bachillerato · 2026-2027</footer>
+
+<script>
+{
+const G={
+1:[
+ ["Zoon politikon","animal político","El ser humano solo se realiza plenamente en comunidad. En la disertación es el punto de partida: necesitamos una comunidad política para vivir bien."],
+ ["Logos","palabra, razón","A diferencia de la voz (phoné) de los animales, la palabra permite deliberar sobre lo justo y lo injusto. Sin deliberación no hay comunidad política, ni local ni global."],
+ ["Oikía · kóme · polis","familia · aldea · ciudad","Los niveles de la comunidad: la familia cubre lo básico, la aldea protege e intercambia, y solo la polis permite «vivir bien»."],
+ ["Autárkeia","autosuficiencia","Lo que define a la comunidad perfecta. Es la clave del argumento: hoy ningún Estado es autosuficiente frente a los problemas globales."],
+ ["Philía politiké","amistad cívica","El vínculo entre ciudadanos que buscan el bien común. La disertación propone ampliarlo a escala planetaria."],
+ ["Phrónesis","prudencia","Saber deliberar bien sobre lo que conviene, para uno mismo y para la comunidad. Los dirigentes deben ejercerla pensando en la humanidad y el futuro."],
+ ["Tamaño de la polis","Ética a Nicómaco IX, 10","«Diez personas no harían una ciudad, y con cien mil ya no sería una ciudad». Es la base de la objeción contra una polis mundial."],
+ ["Stásis","revuelta, discordia","La desigualdad extrema entre ricos y pobres provoca revueltas. Aplicado al mundo: la brecha entre países pone en peligro la cooperación."]
+],
+2:[
+ ["Regímenes rectos y desviados","Política III","Rectos: gobiernan para el bien común (monarquía, aristocracia, politeia). Desviados: para el interés de quien manda (tiranía, oligarquía, democracia). La corrupción convierte los primeros en los segundos."],
+ ["Politeia","régimen mixto","El mejor régimen posible: mezcla de oligarquía y democracia apoyada en una amplia clase media. No es el ideal, sino el más estable."],
+ ["Akrasía","debilidad de la voluntad","Saber qué es lo mejor y no hacerlo. Explica por qué el corrupto, que conoce la ley, la incumple: hay que educar la voluntad, no solo informar."],
+ ["Phrónesis y astucia","prudencia frente a habilidad","La prudencia delibera bien hacia un fin recto; la mera astucia (deinótes) logra cualquier fin, bueno o malo. El corrupto es astuto, no prudente."],
+ ["Crematística","Política I","El afán de acumular riqueza sin límite, que Aristóteles considera antinatural. El corrupto convierte el poder público en negocio."],
+ ["Bienes exteriores","Política VII","Tienen un límite, como cualquier instrumento; las virtudes no se consiguen con ellos, sino ellos con las virtudes."],
+ ["Justicia","general y particular","General: cumplir las leyes orientadas al bien común. Particular: distributiva (según el mérito) y correctiva (restablece lo roto). La corrupción viola ambas."],
+ ["Demagogia","Política IV y V","El demagogo adula al pueblo, pone sus decretos por encima de las leyes y gobierna para una parte: abre el camino a la tiranía."]
+],
+3:[
+ ["Zoon politikon","animal político","El ser humano se realiza en comunidad: quien no la necesita es «o una bestia o un dios». Es la base de la crítica al individualismo radical."],
+ ["Polis anterior al individuo","el todo y la parte","La comunidad no es un contrato entre individuos ya completos: como el todo respecto a la parte, sin ella el individuo no puede desarrollarse."],
+ ["Vivir bien","fin de la polis","La ciudad nace para sobrevivir, pero existe para vivir bien, es decir, para la virtud y la felicidad (eudaimonía)."],
+ ["Tres tipos de bienes","alma · cuerpo · exteriores","La ciudad debe procurar bienes del alma (virtudes), corporales (salud) y exteriores (riqueza suficiente). Por eso educación y sanidad importan."],
+ ["Mesótes","término medio","La virtud está entre dos extremos viciosos. Aplicado al Estado: entre el que lo absorbe todo y el que abandona a los más frágiles."],
+ ["Propiedad privada","Política II","Aristóteles la defiende frente al comunismo de Platón (lo común se descuida), pero con uso común mediante la generosidad."],
+ ["Crematística","Política I","Acumular riqueza sin límite. Aristóteles la condena: la riqueza es un medio, no un fin."],
+ ["Anarcocapitalismo","postura contraria","Corriente que inspira a Milei (Escuela austríaca: Hayek, Rothbard): la sociedad nace de intercambios voluntarios y el Estado debe reducirse al mínimo."]
+]};
+for(const box of document.querySelectorAll('.gloss')){
+  const k=box.dataset.g;
+  box.innerHTML=G[k].map((t,i)=>`<button id="g${k}-${i}" aria-expanded="false"><b>${t[0]}</b><i>${t[1]}</i><p>${t[2]}</p></button>`).join('');
+  box.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;b.setAttribute('aria-expanded',b.getAttribute('aria-expanded')==='true'?'false':'true')});
+}
+const setInk=()=>{const c=getComputedStyle(document.body).color;document.querySelectorAll('svg.ink').forEach(s=>s.style.color=c)};
+setInk();new MutationObserver(setInk).observe(document.documentElement,{attributes:true,attributeFilter:['data-theme']});
+matchMedia('(prefers-color-scheme: dark)').addEventListener?.('change',setInk);
+}
+</script>
+</body>
+</html>
